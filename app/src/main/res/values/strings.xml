@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">covid</string>
+    <string name="app_name">Covidpedia</string>
+
+    <string name="terkonfirmasi">Terkonfirmasi</string>
+    <string name="positif">Positif</string>
+    <string name="sembuh">Sembuh</string>
+    <string name="meninggal">Meninggal</string>
+
+    <string name="kembali">Kembali</string>
+
+    <string name="cases">Cases</string>
+    <string name="maps">Maps</string>
+    <string name="news">News</string>
 </resources>
