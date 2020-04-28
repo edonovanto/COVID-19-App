@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/cases"
         android:icon="@drawable/ic_cases_icon"
-        android:title="Cases" />
+        android:title="@string/cases" />
 
     <item android:id="@+id/maps"
         android:icon="@drawable/ic_maps_icon"
-        android:title="Maps" />
+        android:title="@string/maps" />
 
     <item android:id="@+id/news"
         android:icon="@drawable/ic_news_icon"
-        android:title="News" />
+        android:title="@string/news" />
+
+    <item
+        android:id="@+id/action_change_settings"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="@string/change_language_settings"
+        app:showAsAction="never"/>
 </menu>

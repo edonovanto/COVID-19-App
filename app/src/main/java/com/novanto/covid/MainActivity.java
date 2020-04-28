@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -42,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.news:
                         fragment = new News();
                         break;
+
+                    case R.id.action_change_settings:
+                        Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+                        startActivity(mIntent);
+                        break;
                 }
                 return getFragmentPage(fragment);
             }
@@ -59,4 +67,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
 }
