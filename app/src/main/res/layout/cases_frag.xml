@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_weight="2"
-        android:padding="56px">
+        android:padding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,13 +32,23 @@
                     android:layout_gravity="center"
                     android:text="DATA KASUS COVID-19 INDONESIA"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Pilih Provinsi"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"/>
+
+                <Spinner
+                    android:id="@+id/cases_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/spinner_background"
+                    android:padding="8dp"/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -54,8 +64,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:weightSum="2"
-                        android:padding="56px">
+                        android:weightSum="2">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -63,7 +72,7 @@
                             android:layout_weight="1"
                             android:orientation="vertical"
                             android:layout_gravity="center"
-                            >
+                            android:layout_marginHorizontal="16dp">
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -83,6 +92,7 @@
                             android:orientation="vertical"
                             android:layout_gravity="center">
                             <TextView
+                                android:id="@+id/positifProvinsi"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-"
@@ -92,7 +102,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Positif"
+                                android:text="@string/positif"
                                 android:layout_gravity="center"/>
                         </LinearLayout>
 
@@ -113,13 +123,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:weightSum="2"
-                    android:layout_marginTop="56px">
+                    android:layout_marginTop="16dp">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:layout_marginRight="28px"
+                        android:layout_marginRight="8dp"
                         app:cardBackgroundColor="@color/colorSemiDark">
 
                         <LinearLayout
@@ -142,7 +152,7 @@
                                 android:layout_height="50dp"
                                 android:layout_gravity="center"
                                 android:textAlignment="center"
-                                android:text="Sembuh"/>
+                                android:text="@string/sembuh"/>
                         </LinearLayout>
 
 
@@ -152,7 +162,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:layout_marginLeft="28px"
+                        android:layout_marginLeft="8dp"
                         app:cardBackgroundColor="@color/colorSemiDark">
 
                         <LinearLayout
@@ -175,7 +185,7 @@
                                 android:layout_height="50dp"
                                 android:layout_gravity="center"
                                 android:textAlignment="center"
-                                android:text="Meninggal"/>
+                                android:text="@string/meninggal"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -223,8 +233,8 @@
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:text="Terkonfirmasi"
+                        android:layout_height="32dp"
+                        android:text="@string/terkonfirmasi"
                         android:gravity="bottom"
                         android:textAlignment="center"
                         tools:ignore="RtlCompat" />
@@ -249,8 +259,8 @@
                         android:orientation="vertical">
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:text="Sembuh"
+                            android:layout_height="32dp"
+                            android:text="@string/sembuh"
                             android:gravity="bottom"
                             android:textAlignment="center"
                             tools:ignore="RtlCompat" />
@@ -277,8 +287,8 @@
                         android:orientation="vertical">
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:text="Meninggal"
+                            android:layout_height="32dp"
+                            android:text="@string/meninggal"
                             android:gravity="bottom"
                             android:textAlignment="center"
                             tools:ignore="RtlCompat" />
