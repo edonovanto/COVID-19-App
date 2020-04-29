@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">Covidpedia</string>
 
-    <string name="terkonfirmasi">Confirmed</string>
-    <string name="positif">Positive</string>
-    <string name="sembuh">Recovered</string>
-    <string name="meninggal">Death</string>
+    <string name="cases_prompt">Pilih Daerah/Provinsi</string>
+
+    <string name="terkonfirmasi">Terkonfirmasi</string>
+    <string name="positif">Positif</string>
+    <string name="sembuh">Sembuh</string>
+    <string name="meninggal">Meninggal</string>
 
     <string name="kembali">Back</string>
 
