@@ -2,14 +2,13 @@
 <resources>
 
     <string name="app_name">Covidpedia</string>
-    <string name="cases_prompt">Pilih Daerah/Provinsi</string>
 
     <string name="terkonfirmasi">Terkonfirmasi</string>
     <string name="positif">Positif</string>
     <string name="sembuh">Sembuh</string>
     <string name="meninggal">Meninggal</string>
 
-<!--    <string name="change_language_settings">Atur</string>-->
+    <string name="change_language_settings">Atur</string>
 
     <string name="kembali">Kembali</string>
 
