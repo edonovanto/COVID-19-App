@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Covidpedia</string>
-
     <string name="cases_prompt">Pilih Daerah/Provinsi</string>
 
     <string name="terkonfirmasi">Terkonfirmasi</string>
