@@ -7,8 +7,8 @@ import retrofit2.http.GET;
 
 public interface KawalCoronaApi {
 
-    String BASE_URL = "https://api.kawalcorona.com/indonesia/";
+    String BASE_URL = "https://api.kawalcorona.com/";
 
-    @GET("provinsi")
-    Call<List<Case>> doGetListResources();
+    @GET("indonesia/provinsi")
+    Call<List<Case>> getListProvinsi();
 }

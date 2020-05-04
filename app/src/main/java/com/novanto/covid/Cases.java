@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,7 +24,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Cases extends Fragment {
-    List<String> list = new ArrayList<String>();
+    private List<String> list = new ArrayList<String>();
+    private List<Case> caseList;
+    private TextView namaProvinsi;
+    private TextView positifProvinsi;
+    private TextView sembuhProvinsi;
+    private TextView meninggalProvinsi;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +42,10 @@ public class Cases extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.cases_frag, container, false);
+        namaProvinsi = view.findViewById(R.id.namaProvinsi);
+        positifProvinsi = view.findViewById(R.id.positifProvinsi);
+        sembuhProvinsi = view.findViewById(R.id.sembuhProvinsi);
+        meninggalProvinsi = view.findViewById(R.id.meninggalProvinsi);
 
         String defaultString = "Pilih Provinsi";
 //        String[] values = {"Pilih Provinsi","DKI Jakarta", "Bandung", "Yogyakarta"};
@@ -43,10 +53,33 @@ public class Cases extends Fragment {
         getCases();
 
         Spinner spinner = (Spinner) view.findViewById(R.id.cases_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, list);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);
         spinner.setSelection(0);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position==0){
+                    namaProvinsi.setText("-");
+                    positifProvinsi.setText("-");
+                    sembuhProvinsi.setText("-");
+                    meninggalProvinsi.setText("-");
+
+                }else{
+                    namaProvinsi.setText(caseList.get(position-1).getAttributes().getProvinsi());
+                    positifProvinsi.setText(caseList.get(position-1).getAttributes().getKasus_Posi());
+                    sembuhProvinsi.setText(caseList.get(position-1).getAttributes().getKasus_Semb());
+                    meninggalProvinsi.setText(caseList.get(position-1).getAttributes().getKasus_Meni());
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         return  view;
     }
@@ -59,18 +92,18 @@ public class Cases extends Fragment {
 
         KawalCoronaApi kawalCoronaApi = retrofit.create(KawalCoronaApi.class);
 
-        Call<List<Case>> call = kawalCoronaApi.doGetListResources();
+        Call<List<Case>> callProvinsi = kawalCoronaApi.getListProvinsi();
 
-        call.enqueue(new Callback<List<Case>>() {
+        callProvinsi.enqueue(new Callback<List<Case>>() {
             @Override
             public void onResponse(Call<List<Case>> call, Response<List<Case>> response) {
-                List<Case> caseList = response.body();
+                caseList = response.body();
 
                 for (int i=0; i < caseList.size(); i++){
                     list.add(caseList.get(i).getAttributes().getProvinsi());
                 }
-                String responseText = caseList.get(0).getAttributes().getProvinsi();
-                Toast.makeText(getContext(),responseText,Toast.LENGTH_LONG).show();
+//                String responseText = caseList.get(0).getAttributes().getProvinsi();
+//                Toast.makeText(getContext(),responseText,Toast.LENGTH_LONG).show();
             }
 
             @Override
