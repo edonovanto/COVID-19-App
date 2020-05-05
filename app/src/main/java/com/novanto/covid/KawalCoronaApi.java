@@ -10,5 +10,8 @@ public interface KawalCoronaApi {
     String BASE_URL = "https://api.kawalcorona.com/";
 
     @GET("indonesia/provinsi")
-    Call<List<Case>> getListProvinsi();
+    Call<List<ProvinceCase>> getListProvinsi();
+
+    @GET("indonesia")
+    Call<List<IndonesiaCase>> getListIndonesia();
 }

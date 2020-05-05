@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +27,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Cases extends Fragment {
     private List<String> list = new ArrayList<String>();
-    private List<Case> caseList;
+    private List<ProvinceCase> provinceCaseList;
+    private List<IndonesiaCase> indonesiaCaseList;
     private TextView namaProvinsi;
     private TextView positifProvinsi;
     private TextView sembuhProvinsi;
     private TextView meninggalProvinsi;
+    private TextView totalPositif;
+    private TextView totalSembuh;
+    private TextView totalMeninggal;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,15 +48,17 @@ public class Cases extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.cases_frag, container, false);
+        list.add("Pilih Provinsi");
+        getProvinceCases();
+
         namaProvinsi = view.findViewById(R.id.namaProvinsi);
         positifProvinsi = view.findViewById(R.id.positifProvinsi);
         sembuhProvinsi = view.findViewById(R.id.sembuhProvinsi);
         meninggalProvinsi = view.findViewById(R.id.meninggalProvinsi);
 
-        String defaultString = "Pilih Provinsi";
-//        String[] values = {"Pilih Provinsi","DKI Jakarta", "Bandung", "Yogyakarta"};
-        list.add("Pilih Provinsi");
-        getCases();
+        totalPositif = view.findViewById(R.id.totalPositif);
+        totalSembuh = view.findViewById(R.id.totalSembuh);
+        totalMeninggal = view.findViewById(R.id.totalMeninggal);
 
         Spinner spinner = (Spinner) view.findViewById(R.id.cases_spinner);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, list);
@@ -68,10 +76,10 @@ public class Cases extends Fragment {
                     meninggalProvinsi.setText("-");
 
                 }else{
-                    namaProvinsi.setText(caseList.get(position-1).getAttributes().getProvinsi());
-                    positifProvinsi.setText(caseList.get(position-1).getAttributes().getKasus_Posi());
-                    sembuhProvinsi.setText(caseList.get(position-1).getAttributes().getKasus_Semb());
-                    meninggalProvinsi.setText(caseList.get(position-1).getAttributes().getKasus_Meni());
+                    namaProvinsi.setText(provinceCaseList.get(position-1).getAttributes().getProvinsi());
+                    positifProvinsi.setText(provinceCaseList.get(position-1).getAttributes().getKasus_Posi());
+                    sembuhProvinsi.setText(provinceCaseList.get(position-1).getAttributes().getKasus_Semb());
+                    meninggalProvinsi.setText(provinceCaseList.get(position-1).getAttributes().getKasus_Meni());
                 }
             }
 
@@ -81,10 +89,14 @@ public class Cases extends Fragment {
             }
         });
 
+        getIndonesiaCases();
+
+
+
         return  view;
     }
 
-    private void getCases(){
+    private void getProvinceCases(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(KawalCoronaApi.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -92,23 +104,48 @@ public class Cases extends Fragment {
 
         KawalCoronaApi kawalCoronaApi = retrofit.create(KawalCoronaApi.class);
 
-        Call<List<Case>> callProvinsi = kawalCoronaApi.getListProvinsi();
+        Call<List<ProvinceCase>> callProvinsi = kawalCoronaApi.getListProvinsi();
 
-        callProvinsi.enqueue(new Callback<List<Case>>() {
+        callProvinsi.enqueue(new Callback<List<ProvinceCase>>() {
             @Override
-            public void onResponse(Call<List<Case>> call, Response<List<Case>> response) {
-                caseList = response.body();
+            public void onResponse(Call<List<ProvinceCase>> call, Response<List<ProvinceCase>> response) {
+                provinceCaseList = response.body();
 
-                for (int i=0; i < caseList.size(); i++){
-                    list.add(caseList.get(i).getAttributes().getProvinsi());
+                for (int i = 0; i < provinceCaseList.size(); i++){
+                    list.add(provinceCaseList.get(i).getAttributes().getProvinsi());
                 }
-//                String responseText = caseList.get(0).getAttributes().getProvinsi();
-//                Toast.makeText(getContext(),responseText,Toast.LENGTH_LONG).show();
             }
 
             @Override
-            public void onFailure(Call<List<Case>> call, Throwable t) {
+            public void onFailure(Call<List<ProvinceCase>> call, Throwable t) {
                 Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+    }
+
+    private void getIndonesiaCases(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(KawalCoronaApi.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        KawalCoronaApi kawalCoronaApi = retrofit.create(KawalCoronaApi.class);
+        Call<List<IndonesiaCase>> callIndonesia = kawalCoronaApi.getListIndonesia();
+
+        callIndonesia.enqueue(new Callback<List<IndonesiaCase>>() {
+            @Override
+            public void onResponse(Call<List<IndonesiaCase>> call, Response<List<IndonesiaCase>> response) {
+                indonesiaCaseList = response.body();
+
+                totalPositif.setText(indonesiaCaseList.get(0).getPositif());
+                totalSembuh.setText(indonesiaCaseList.get(0).getSembuh());
+                totalMeninggal.setText(indonesiaCaseList.get(0).getMeninggal());
+            }
+
+            @Override
+            public void onFailure(Call<List<IndonesiaCase>> call, Throwable t) {
 
             }
         });

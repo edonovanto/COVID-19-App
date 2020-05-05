@@ -236,7 +236,7 @@
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="32dp"
+                        android:layout_height="wrap_content"
                         android:text="@string/terkonfirmasi"
                         android:gravity="bottom"
                         android:textAlignment="center"
@@ -263,7 +263,7 @@
                         android:orientation="vertical">
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="32dp"
+                            android:layout_height="wrap_content"
                             android:text="@string/sembuh"
                             android:gravity="bottom"
                             android:textAlignment="center"
@@ -292,7 +292,7 @@
                         android:orientation="vertical">
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="32dp"
+                            android:layout_height="wrap_content"
                             android:text="@string/meninggal"
                             android:gravity="bottom"
                             android:textAlignment="center"

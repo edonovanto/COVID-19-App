@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Case {
+public class ProvinceCase {
 
     @SerializedName("attributes")
     public Attributes attributes = null;
