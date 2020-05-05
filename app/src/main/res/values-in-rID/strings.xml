@@ -17,4 +17,7 @@
     <string name="cases">Kasus</string>
     <string name="maps">Peta</string>
     <string name="news">Berita</string>
+
+    <string name="appwidget_text">Galeri Covidpedia</string>
+    <string name="empty_text">Tambahkan widget</string>
 </resources>
