@@ -78,9 +78,10 @@
                                 android:layout_height="wrap_content"
                                 android:text="Data pemantauan kasus terkonfirmasi Covid-19"/>
                             <TextView
+                                android:id="@+id/namaProvinsi"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="DKI Jakarta"
+                                android:text="-"
                                 android:layout_gravity="center"
                                 android:textColor="@color/colorPrimary"/>
 
@@ -138,6 +139,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/sembuhProvinsi"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:layout_gravity="center"
@@ -171,6 +173,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/meninggalProvinsi"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:layout_gravity="center"
@@ -233,12 +236,13 @@
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="32dp"
+                        android:layout_height="wrap_content"
                         android:text="@string/terkonfirmasi"
                         android:gravity="bottom"
                         android:textAlignment="center"
                         tools:ignore="RtlCompat" />
                     <TextView
+                        android:id="@+id/totalPositif"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="-"
@@ -259,12 +263,13 @@
                         android:orientation="vertical">
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="32dp"
+                            android:layout_height="wrap_content"
                             android:text="@string/sembuh"
                             android:gravity="bottom"
                             android:textAlignment="center"
                             tools:ignore="RtlCompat" />
                         <TextView
+                            android:id="@+id/totalSembuh"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="-"
@@ -287,12 +292,13 @@
                         android:orientation="vertical">
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="32dp"
+                            android:layout_height="wrap_content"
                             android:text="@string/meninggal"
                             android:gravity="bottom"
                             android:textAlignment="center"
                             tools:ignore="RtlCompat" />
                         <TextView
+                            android:id="@+id/totalMeninggal"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="-"
