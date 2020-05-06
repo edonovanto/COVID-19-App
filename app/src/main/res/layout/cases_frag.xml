@@ -97,7 +97,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-"
-                                android:textSize="56px"
+                                android:textSize="26sp"
                                 android:layout_gravity="center"
                                 android:textColor="@color/colorSoftYellow"/>
                             <TextView
@@ -146,7 +146,7 @@
                                 android:gravity="bottom"
                                 android:textAlignment="center"
                                 android:text="-"
-                                android:textSize="56px"
+                                android:textSize="26sp"
                                 android:textColor="@color/colorSoftGreen"
                                 tools:ignore="RtlCompat" />
                             <TextView
@@ -180,7 +180,7 @@
                                 android:gravity="bottom"
                                 android:textAlignment="center"
                                 android:text="-"
-                                android:textSize="56px"
+                                android:textSize="26sp"
                                 android:textColor="@color/colorSoftRed"
                                 tools:ignore="RtlCompat" />
                             <TextView
@@ -216,7 +216,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="56px"
+            android:padding="24dp"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"

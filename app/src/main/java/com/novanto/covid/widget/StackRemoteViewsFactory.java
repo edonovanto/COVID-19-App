@@ -30,7 +30,9 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     @Override
     public void onDataSetChanged() {
         mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.covid3));
-        mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.covid3));
+        mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.covid4));
+        mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.covid5));
+        mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.covid6));
     }
 
     @Override
