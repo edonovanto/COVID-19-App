@@ -14,6 +14,9 @@
     <string name="cases">Cases</string>
     <string name="maps">Maps</string>
     <string name="news">News</string>
+    <string name="news_title">News Title</string>
+    <string name="news_description">News Description</string>
+
         <string name="appwidget_text">Covidpedia Gallery</string>
         <string name="empty_text">Add widget</string>
 </resources>
