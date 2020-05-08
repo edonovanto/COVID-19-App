@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,13 +49,11 @@ public class News extends Fragment {
         View rootView =  inflater.inflate(R.layout.news_frag, container, false);
 
         rvNews = (RecyclerView) rootView.findViewById(R.id.rv_news);
-        rvNews.setHasFixedSize(true);
+        rvNews.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
 
         callAPI();
-
-        showRecyclerList();
 
         return rootView;
     }
@@ -84,16 +84,14 @@ public class News extends Fragment {
 //                        JSONObject dataPhoto = photoData.getJSONObject(0);
 //                        String photo = dataPhoto.getString("url");
 
-                        //insert the data to arraylist
-
                         titleArr.add(title);
                         descArr.add(desc);
 //                        photoArr.add(photo);
                     }
 
-                    Log.d(TAG, "Parsing Data");
-
+                    Log.d(TAG, "Get List News");
                     list.addAll(getListNews());
+                    showRecyclerList(list);
 
                 } catch (Exception e) {
                     Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -128,7 +126,7 @@ public class News extends Fragment {
 
         ArrayList<NewsModel> listNews = new ArrayList<>();
 
-        for (int i = 0;i<10;i++){
+        for (int i = 0;i<titleArr.size();i++){
             NewsModel newsModel = new NewsModel();
             newsModel.setTitle(titleArr.get(i));
             newsModel.setDescription(descArr.get(i));
@@ -142,11 +140,10 @@ public class News extends Fragment {
 
     }
 
-    public void showRecyclerList(){
+    public void showRecyclerList(ArrayList<NewsModel> list){
         rvNews.setLayoutManager(new LinearLayoutManager(getActivity()));
         ListNewsAdapter listNewsAdapter = new ListNewsAdapter(list);
         rvNews.setAdapter(listNewsAdapter);
     }
-
 
 }
