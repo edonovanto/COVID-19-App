@@ -1,5 +1,6 @@
 package com.novanto.covid;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
@@ -42,13 +43,13 @@ public class Maps extends Fragment implements OnMapReadyCallback {
     private GoogleMap mapAPI;
     private SupportMapFragment mapFragment;
 
-    private ProgressBar progressBar;
     private static final String TAG = MainActivity.class.getSimpleName();
 
 
     private ArrayList<String> country = new ArrayList<>();
     ArrayList<String> cases = new ArrayList<>();
     private ArrayList<LatLng> coordinate = new ArrayList<>();
+
 
     public Maps(){
 
@@ -62,15 +63,11 @@ public class Maps extends Fragment implements OnMapReadyCallback {
 
         mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
 
+        mapFragment.getMapAsync(this);
+
+
         getListMap();
 
-        if(mapFragment == null){
-            FragmentManager fm = getFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            mapFragment = SupportMapFragment.newInstance();
-            ft.replace(R.id.map,mapFragment).commit();
-        }
-        mapFragment.getMapAsync(this);
         return v;
     }
 
@@ -101,6 +98,14 @@ public class Maps extends Fragment implements OnMapReadyCallback {
                         Log.d(TAG, "Coordinate size: " + coordinate.size());
                     }
 
+                    if(mapFragment == null){
+                        FragmentManager fm = getFragmentManager();
+                        FragmentTransaction ft = fm.beginTransaction();
+                        mapFragment = SupportMapFragment.newInstance();
+                        ft.replace(R.id.map,mapFragment).commit();
+                    }
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -108,7 +113,6 @@ public class Maps extends Fragment implements OnMapReadyCallback {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 // Jika koneksi gagal
-                progressBar.setVisibility(View.INVISIBLE);
                 String errorMessage;
                 switch (statusCode) {
                     case 401:
@@ -138,16 +142,18 @@ public class Maps extends Fragment implements OnMapReadyCallback {
 
         Log.d(TAG, "onMapReady: " + "Ready to show " + coordinate.size() + " country");
 
-//        for (int i=0;i<coordinate.size();i++){
-//                mapAPI.addMarker(new MarkerOptions().position(coordinate.get(i)).title(country.get(i)));
-//                mapAPI.moveCamera(CameraUpdateFactory.newLatLng(coordinate.get(i)));
-//        }
+        for (int i=0;i<coordinate.size();i++){
+                mapAPI.addMarker(new MarkerOptions().position(coordinate.get(i)).title(country.get(i)));
+                mapAPI.moveCamera(CameraUpdateFactory.newLatLng(coordinate.get(i)));
+        }
 
-        LatLng bekauheni = new LatLng(-6.175110,106.865036);
+//        LatLng bekauheni = new LatLng(-6.175110,106.865036);
 
-        mapAPI.addMarker(new MarkerOptions().position(bekauheni).title("Total Kasus : 9542"));
-
-        mapAPI.moveCamera(CameraUpdateFactory.newLatLng(bekauheni));
+//        mapAPI.addMarker(new MarkerOptions().position(bekauheni).title("Total Kasus : 9542"));
+//
+//        mapAPI.moveCamera(CameraUpdateFactory.newLatLng(bekauheni));
 
     }
+
+
 }

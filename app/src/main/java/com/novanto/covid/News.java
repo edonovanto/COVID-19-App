@@ -5,6 +5,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -33,10 +36,13 @@ public class News extends Fragment {
 
     private RecyclerView rvNews;
 
+    WebView myWebView;
+
     ArrayList<NewsModel> list = new ArrayList<>();
 
     ArrayList<String> titleArr = new ArrayList<>();
     ArrayList<String> descArr = new ArrayList<>();
+    ArrayList<String> urlArr = new ArrayList<>();
     ArrayList<String> photoArr = new ArrayList<>();
 
     private ProgressBar progressBar;
@@ -51,6 +57,8 @@ public class News extends Fragment {
         rvNews = (RecyclerView) rootView.findViewById(R.id.rv_news);
         rvNews.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        myWebView = (WebView) rootView.findViewById(R.id.webView);
+
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
 
         callAPI();
@@ -63,7 +71,7 @@ public class News extends Fragment {
 
         AsyncHttpClient client = new AsyncHttpClient();
         String url = "https://api.smartable.ai/coronavirus/news/US";
-        client.addHeader("Subscription-Key", "3009d4ccc29e4808af1ccc25c69b4d5d");
+        client.addHeader("Subscription-Key", "a4349d14f30045fda88a6706a6364739");
 
         client.get(url,  new AsyncHttpResponseHandler() {
             @Override
@@ -80,12 +88,14 @@ public class News extends Fragment {
                         JSONObject dataObject = dataArray.getJSONObject(i);
                         String title = dataObject.getString("title");
                         String desc = dataObject.getString("excerpt");
+                        String url = dataObject.getString("webUrl");
 //                        JSONArray photoData = dataObject.getJSONArray("images");
 //                        JSONObject dataPhoto = photoData.getJSONObject(0);
 //                        String photo = dataPhoto.getString("url");
 
                         titleArr.add(title);
                         descArr.add(desc);
+                        urlArr.add(url);
 //                        photoArr.add(photo);
                     }
 
@@ -130,8 +140,9 @@ public class News extends Fragment {
             NewsModel newsModel = new NewsModel();
             newsModel.setTitle(titleArr.get(i));
             newsModel.setDescription(descArr.get(i));
+            newsModel.setUrl(urlArr.get(i));
 
-            Log.d(TAG,"Adding Title " + i + " :" + titleArr.get(i) + "\n Desc: " + descArr.get(i)+ "\n");
+            Log.d(TAG,"Adding Title " + i + " :" + titleArr.get(i) + "\n Desc: " + descArr.get(i)+ " \n URL : " + urlArr.get(i) + "\n");
 
             listNews.add(newsModel);
         }
@@ -144,6 +155,19 @@ public class News extends Fragment {
         rvNews.setLayoutManager(new LinearLayoutManager(getActivity()));
         ListNewsAdapter listNewsAdapter = new ListNewsAdapter(list);
         rvNews.setAdapter(listNewsAdapter);
+
+        listNewsAdapter.setOnItemClickCallback(new ListNewsAdapter.OnItemClickCallback() {
+            @Override
+            public void onItemClicked(NewsModel data) {
+                showSelectedNews(data);
+            }
+        });
+    }
+
+    private void showSelectedNews(NewsModel newsModel){
+            myWebView.loadUrl(newsModel.getUrl());
+            myWebView.setVisibility(View.VISIBLE);
+        Toast.makeText(getActivity(),"You choose : " + newsModel.getTitle() ,Toast.LENGTH_SHORT).show();
     }
 
 }

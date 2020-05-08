@@ -21,6 +21,11 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.ListNe
 
     private ArrayList<NewsModel> listNews;
     private static final String TAG = News.class.getSimpleName();
+    private OnItemClickCallback onItemClickCallback;
+
+    public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback;
+    }
 
     public ListNewsAdapter(ArrayList<NewsModel> list){
         this.listNews = list;
@@ -34,7 +39,7 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.ListNe
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListNewsHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ListNewsHolder holder, int position) {
         NewsModel newsModel = listNews.get(position);
 
 //        Glide.with(holder.itemView.getContext())
@@ -45,6 +50,14 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.ListNe
 
         holder.tvTitle.setText(newsModel.getTitle());
         holder.tvDesc.setText(newsModel.getDescription());
+
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onItemClickCallback.onItemClicked(listNews.get(holder.getAdapterPosition()));
+            }
+        });
     }
 
     @Override
@@ -56,7 +69,7 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.ListNe
     public class ListNewsHolder extends RecyclerView.ViewHolder {
 
         ImageView imgPhoto;
-        TextView tvTitle, tvDesc;
+        TextView tvTitle, tvDesc, tvUrl;
 
         public ListNewsHolder(@NonNull View itemView) {
             super(itemView);
@@ -64,5 +77,9 @@ public class ListNewsAdapter extends RecyclerView.Adapter<ListNewsAdapter.ListNe
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title_news);
             tvDesc = (TextView) itemView.findViewById(R.id.tv_decs_news);
         }
+    }
+
+    public interface OnItemClickCallback {
+        void onItemClicked(NewsModel data);
     }
 }

@@ -7,6 +7,15 @@ public class NewsModel implements Parcelable {
     private String title;
     private String description;
     private String photo;
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getTitle() {
         return title;
@@ -42,6 +51,7 @@ public class NewsModel implements Parcelable {
         parcel.writeString(this.title);
         parcel.writeString(this.description);
         parcel.writeString(this.photo);
+        parcel.writeString(this.url);
     }
 
     public NewsModel(){
@@ -52,6 +62,7 @@ public class NewsModel implements Parcelable {
         this.title=in.readString();
         this.description=in.readString();
         this.photo=in.readString();
+        this.url=in.readString();
     }
 
     public static final Parcelable.Creator<NewsModel> CREATOR = new Parcelable.Creator<NewsModel>() {
