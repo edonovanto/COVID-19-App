@@ -50,6 +50,20 @@ public class Maps extends Fragment implements OnMapReadyCallback {
     ArrayList<String> cases = new ArrayList<>();
     private ArrayList<LatLng> coordinate = new ArrayList<>();
 
+    private ArrayList<LatLng> arrayList = new ArrayList<LatLng>();
+    LatLng jakarta = new LatLng(-6.200000,106.816666);
+    LatLng aceh = new LatLng(5.548290,95.323753);
+    LatLng bandung = new LatLng(-7.025253,107.519760);
+    LatLng riau = new LatLng(1.694394,101.445007);
+    LatLng bali = new LatLng(-8.650000,115.216667);
+    LatLng surabaya = new LatLng(-7.250445,112.768845);
+    LatLng balikpapan = new LatLng(-1.269160,116.825264);
+    LatLng manado = new LatLng(1.474830,124.842079);
+
+    String[] cityName = {"Jakarta","Aceh","Manado","Balikpapan","Bali","Bandung","Riau","Surabaya"};
+
+
+
 
     public Maps(){
 
@@ -65,10 +79,20 @@ public class Maps extends Fragment implements OnMapReadyCallback {
 
         mapFragment.getMapAsync(this);
 
-
-        getListMap();
+        addCityToMarker();
 
         return v;
+    }
+
+    private void addCityToMarker(){
+        arrayList.add(jakarta);
+        arrayList.add(aceh);
+        arrayList.add(manado);
+        arrayList.add(balikpapan);
+        arrayList.add(bali);
+        arrayList.add(bandung);
+        arrayList.add(riau);
+        arrayList.add(surabaya);
     }
 
     private void getListMap() {
@@ -142,9 +166,12 @@ public class Maps extends Fragment implements OnMapReadyCallback {
 
         Log.d(TAG, "onMapReady: " + "Ready to show " + coordinate.size() + " country");
 
-        for (int i=0;i<coordinate.size();i++){
-                mapAPI.addMarker(new MarkerOptions().position(coordinate.get(i)).title(country.get(i)));
-                mapAPI.moveCamera(CameraUpdateFactory.newLatLng(coordinate.get(i)));
+        getListMap();
+
+        for (int i=0;i<arrayList.size();i++){
+                mapAPI.addMarker(new MarkerOptions().position(arrayList.get(i)).title(cityName[i]));
+                mapAPI.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
+                mapAPI.moveCamera(CameraUpdateFactory.newLatLng(arrayList.get(i)));
         }
 
 //        LatLng bekauheni = new LatLng(-6.175110,106.865036);
