@@ -86,16 +86,16 @@ public class Maps extends Fragment implements OnMapReadyCallback {
                     for(int i=0;i<jsonArray.length();i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         String count = jsonObject.getString("country");
-                        Log.d(TAG, "Country: " + count);
+//                        Log.d(TAG, "Country: " + count);
                         JSONObject lat = jsonObject.getJSONObject("countryInfo");
                         int x = lat.getInt("lat");
                         int y = lat.getInt("long");
-                        Log.d(TAG, "lat: " + x + " long: " + y);
+//                        Log.d(TAG, "lat: " + x + " long: " + y);
                         LatLng place = new LatLng(x,y);
                         coordinate.add(place);
                         country.add(count);
 
-                        Log.d(TAG, "Coordinate size: " + coordinate.size());
+//                        Log.d(TAG, "Coordinate size: " + coordinate.size());
                     }
 
                     if(mapFragment == null){

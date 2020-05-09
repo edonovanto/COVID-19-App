@@ -142,7 +142,7 @@ public class News extends Fragment {
             newsModel.setDescription(descArr.get(i));
             newsModel.setUrl(urlArr.get(i));
 
-            Log.d(TAG,"Adding Title " + i + " :" + titleArr.get(i) + "\n Desc: " + descArr.get(i)+ " \n URL : " + urlArr.get(i) + "\n");
+//            Log.d(TAG,"Adding Title " + i + " :" + titleArr.get(i) + "\n Desc: " + descArr.get(i)+ " \n URL : " + urlArr.get(i) + "\n");
 
             listNews.add(newsModel);
         }
