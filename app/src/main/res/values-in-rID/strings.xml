@@ -5,6 +5,12 @@
 
     <string name="cases_prompt">Pilih Daerah/Provinsi</string>
 
+    <string name="data_kasus">Total kasus COVID-19 di Indonesia</string>
+    <string name="pantau">Data pemantauan kasus terkonfirmasi Covid-19</string>
+    <string name="provinsi">Pilih Provinsi</string>
+    <string name="covid">DATA KASUS COVID-19 INDONESIA</string>
+
+
     <string name="terkonfirmasi">Terkonfirmasi</string>
     <string name="positif">Positif</string>
     <string name="sembuh">Sembuh</string>
@@ -17,6 +23,8 @@
     <string name="cases">Kasus</string>
     <string name="maps">Peta</string>
     <string name="news">Berita</string>
+    <string name="news_title">Judul Berita</string>
+    <string name="news_description">Deskripsi Berita</string>
 
     <string name="appwidget_text">Galeri Covidpedia</string>
     <string name="empty_text">Tambahkan widget</string>
