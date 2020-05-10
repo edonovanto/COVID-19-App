@@ -85,7 +85,10 @@ public class Cases extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                namaProvinsi.setText("-");
+                positifProvinsi.setText("-");
+                sembuhProvinsi.setText("-");
+                meninggalProvinsi.setText("-");
             }
         });
 
@@ -146,6 +149,7 @@ public class Cases extends Fragment {
 
             @Override
             public void onFailure(Call<List<IndonesiaCase>> call, Throwable t) {
+                Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_LONG).show();
 
             }
         });
