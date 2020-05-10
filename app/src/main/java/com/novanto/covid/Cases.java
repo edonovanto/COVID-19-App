@@ -1,6 +1,7 @@
 package com.novanto.covid;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import com.novanto.covid.cases.Covid19Api;
+import com.novanto.covid.cases.Covid19Case;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
 public class Cases extends Fragment {
     private List<String> list = new ArrayList<String>();
     private List<ProvinceCase> provinceCaseList;
@@ -36,6 +42,7 @@ public class Cases extends Fragment {
     private TextView totalPositif;
     private TextView totalSembuh;
     private TextView totalMeninggal;
+    private Covid19Case covid19Case;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,8 +55,12 @@ public class Cases extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.cases_frag, container, false);
-        list.add("Pilih Provinsi");
+        list.add(getString(R.string.provinsi));
+
         getProvinceCases();
+
+//        covid19Case = new Covid19Case();
+//        getCovid19Cases();
 
         namaProvinsi = view.findViewById(R.id.namaProvinsi);
         positifProvinsi = view.findViewById(R.id.positifProvinsi);
@@ -59,6 +70,7 @@ public class Cases extends Fragment {
         totalPositif = view.findViewById(R.id.totalPositif);
         totalSembuh = view.findViewById(R.id.totalSembuh);
         totalMeninggal = view.findViewById(R.id.totalMeninggal);
+
 
         Spinner spinner = (Spinner) view.findViewById(R.id.cases_spinner);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, list);
@@ -89,9 +101,14 @@ public class Cases extends Fragment {
                 positifProvinsi.setText("-");
                 sembuhProvinsi.setText("-");
                 meninggalProvinsi.setText("-");
+
+
             }
         });
 
+        totalPositif.setText("Loading...");
+        totalSembuh.setText("Loading...");
+        totalMeninggal.setText("Loading...");
         getIndonesiaCases();
 
 
@@ -155,4 +172,34 @@ public class Cases extends Fragment {
         });
 
     }
+
+
+//    private void getCovid19Cases(){
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(Covid19Api.BASE_URL)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        final Covid19Api covid19Api = retrofit.create(Covid19Api.class);
+//
+//        Call<Covid19Case> callCovid19 = covid19Api.getAllCovid19Cases();
+//
+//        callCovid19.enqueue(new Callback<Covid19Case>() {
+//            @Override
+//            public void onResponse(Call<Covid19Case> call, Response<Covid19Case> response) {
+//                covid19Case = response.body();
+//                Log.d(TAG, "onResponse: " + response.body().getGlobal().getTotalRecovered());
+//                Toast.makeText(getContext(),covid19Case.getGlobal().getTotalRecovered()+"",Toast.LENGTH_LONG).show();
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Covid19Case> call, Throwable t) {
+//                Toast.makeText(getContext(),"gagal",Toast.LENGTH_LONG).show();
+//
+//            }
+//        });
+//
+//    }
+
 }

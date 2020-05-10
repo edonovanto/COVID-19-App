@@ -1,41 +1,48 @@
 package com.novanto.covid.cases;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class Covid19Case {
 
-    @SerializedName("attributes")
-    public Covid19Case.Global global = null;
-    public Covid19Case.Countries countries = null;
+    @SerializedName("Global")
+    public Global global = null;
+    @SerializedName("Countries")
+    public List<Countries> countries = null;
+    @SerializedName("Date")
+    private String Date;
 
     public Global getGlobal() {
         return global;
     }
 
-    public Countries getCountries() {
+    public List<Countries> getCountries() {
         return countries;
     }
 
     public class Global{
         @SerializedName("NewConfirmed")
-        private String NewConfirmed;
+        private Integer NewConfirmed;
 
         @SerializedName("TotalConfirmed")
-        private String TotalConfirmed;
+        private Integer TotalConfirmed;
 
         @SerializedName("NewDeaths")
-        private String NewDeaths;
+        private Integer NewDeaths;
 
         @SerializedName("TotalDeaths")
-        private String TotalDeaths;
+        private Integer TotalDeaths;
 
         @SerializedName("NewRecovered")
-        private String NewRecovered;
+        private Integer NewRecovered;
 
         @SerializedName("TotalRecovered")
-        private String TotalRecovered;
+        private Integer TotalRecovered;
 
-        public Global(String newConfirmed, String totalConfirmed, String newDeaths, String totalDeaths, String newRecovered, String totalRecovered) {
+        public Global(Integer newConfirmed, Integer totalConfirmed, Integer newDeaths, Integer totalDeaths, Integer newRecovered, Integer totalRecovered) {
             NewConfirmed = newConfirmed;
             TotalConfirmed = totalConfirmed;
             NewDeaths = newDeaths;
@@ -44,31 +51,29 @@ public class Covid19Case {
             TotalRecovered = totalRecovered;
         }
 
-
-        public String getNewConfirmed() {
+        public Integer getNewConfirmed() {
             return NewConfirmed;
         }
 
-        public String getTotalConfirmed() {
+        public Integer getTotalConfirmed() {
             return TotalConfirmed;
         }
 
-        public String getNewDeaths() {
+        public Integer getNewDeaths() {
             return NewDeaths;
         }
 
-        public String getTotalDeaths() {
+        public Integer getTotalDeaths() {
             return TotalDeaths;
         }
 
-        public String getNewRecovered() {
+        public Integer getNewRecovered() {
             return NewRecovered;
         }
 
-        public String getTotalRecovered() {
+        public Integer getTotalRecovered() {
             return TotalRecovered;
         }
-
     }
 
     public class Countries{
@@ -82,27 +87,27 @@ public class Covid19Case {
         private String Slug;
 
         @SerializedName("NewConfirmed")
-        private String NewConfirmed;
+        private Integer NewConfirmed;
 
         @SerializedName("TotalConfirmed")
-        private String TotalConfirmed;
+        private Integer TotalConfirmed;
 
         @SerializedName("NewDeaths")
-        private String NewDeaths;
+        private Integer NewDeaths;
 
         @SerializedName("TotalDeaths")
-        private String TotalDeaths;
+        private Integer TotalDeaths;
 
         @SerializedName("NewRecovered")
-        private String NewRecovered;
+        private Integer NewRecovered;
 
         @SerializedName("TotalRecovered")
-        private String TotalRecovered;
+        private Integer TotalRecovered;
 
         @SerializedName("Date")
         private String Date;
 
-        public Countries(String country, String countryCode, String slug, String newConfirmed, String totalConfirmed, String newDeaths, String totalDeaths, String newRecovered, String totalRecovered, String date) {
+        public Countries(String country, String countryCode, String slug, Integer newConfirmed, Integer totalConfirmed, Integer newDeaths, Integer totalDeaths, Integer newRecovered, Integer totalRecovered, String date) {
             Country = country;
             CountryCode = countryCode;
             Slug = slug;
@@ -127,32 +132,38 @@ public class Covid19Case {
             return Slug;
         }
 
-        public String getNewConfirmed() {
+        public Integer getNewConfirmed() {
             return NewConfirmed;
         }
 
-        public String getTotalConfirmed() {
+        public Integer getTotalConfirmed() {
             return TotalConfirmed;
         }
 
-        public String getNewDeaths() {
+        public Integer getNewDeaths() {
             return NewDeaths;
         }
 
-        public String getTotalDeaths() {
+        public Integer getTotalDeaths() {
             return TotalDeaths;
         }
 
-        public String getNewRecovered() {
+        public Integer getNewRecovered() {
             return NewRecovered;
         }
 
-        public String getTotalRecovered() {
+        public Integer getTotalRecovered() {
             return TotalRecovered;
         }
 
         public String getDate() {
             return Date;
         }
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "berhasil";
     }
 }
