@@ -1,15 +1,27 @@
 <resources>
     <string name="app_name">Covidpedia</string>
-    <string name="cases_prompt">Pilih Daerah/Provinsi</string>
-    
-    <string name="terkonfirmasi">Terkonfirmasi</string>
-    <string name="positif">Positif</string>
-    <string name="sembuh">Sembuh</string>
-    <string name="meninggal">Meninggal</string>
+    <string name="cases_prompt">Choose Region</string>
 
-    <string name="kembali">Kembali</string>
+    <string name="data_kasus">Total COVID-19 Cases in Indonesia</string>
+    <string name="pantau">Data on confirmed COVID-19 cases</string>
+    <string name="provinsi">Choose Province</string>
+    <string name="covid">COVID-19 CASES IN INDONESIA</string>
+
+    <string name="terkonfirmasi">Confirmed</string>
+    <string name="positif">Positive</string>
+    <string name="sembuh">Recovered</string>
+    <string name="meninggal">Death</string>
+
+    <string name="change_language_settings">Settigs</string>
+
+    <string name="kembali">Back</string>
 
     <string name="cases">Cases</string>
     <string name="maps">Maps</string>
     <string name="news">News</string>
+    <string name="news_title">News Title</string>t
+    <string name="news_description">News Description</string>
+
+        <string name="appwidget_text">Covidpedia Gallery</string>
+        <string name="empty_text">Add widget</string>
 </resources>

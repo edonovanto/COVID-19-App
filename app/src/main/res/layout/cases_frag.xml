@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/quicksand_medium"
                     android:layout_gravity="center"
-                    android:text="DATA KASUS COVID-19 INDONESIA"
+                    android:text="@string/covid"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="10dp"/>
@@ -43,7 +43,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pilih Provinsi"
+                    android:text="@string/provinsi"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dp"/>
 
@@ -81,7 +81,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Data pemantauan kasus terkonfirmasi Covid-19"/>
+                                android:text="@string/pantau"/>
                             <TextView
                                 android:id="@+id/namaProvinsi"
                                 android:layout_width="match_parent"
@@ -102,7 +102,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-"
-                                android:textSize="56px"
+                                android:textSize="26sp"
                                 android:layout_gravity="center"
                                 android:textColor="@color/colorSoftYellow"/>
                             <TextView
@@ -151,7 +151,7 @@
                                 android:gravity="bottom"
                                 android:textAlignment="center"
                                 android:text="-"
-                                android:textSize="56px"
+                                android:textSize="26sp"
                                 android:textColor="@color/colorSoftGreen"
                                 tools:ignore="RtlCompat" />
                             <TextView
@@ -185,7 +185,7 @@
                                 android:gravity="bottom"
                                 android:textAlignment="center"
                                 android:text="-"
-                                android:textSize="56px"
+                                android:textSize="26sp"
                                 android:textColor="@color/colorSoftRed"
                                 tools:ignore="RtlCompat" />
                             <TextView
@@ -221,12 +221,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="56px"
+            android:padding="24dp"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Total kasus COVID-19 di Indonesia"
+                android:text="@string/data_kasus"
                 android:textAlignment="center"/>
 
             <LinearLayout
