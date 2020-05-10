@@ -4,43 +4,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp">
-
-    <ImageView
-        android:id="@+id/img_item_news"
-        android:layout_width="140dp"
-        android:layout_height="90dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:src="@color/colorDark"/>
+    android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/cont"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/img_item_news"
-        android:layout_toRightOf="@id/img_item_news"
-        android:orientation="vertical">
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tv_title_news"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        tools:text="@string/news_title" />
+        <ImageView
+            android:id="@+id/img_item_news"
+            android:layout_width="140dp"
+            android:layout_height="90dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/news"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/img_item_news"
+            android:layout_toRightOf="@id/img_item_news"
+            android:orientation="vertical">
 
         <TextView
-        android:id="@+id/tv_decs_news"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="2"
-        tools:text="@string/news_description" />
+            android:id="@+id/tv_title_news"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="@string/news_title" />
+
+            <TextView
+            android:id="@+id/tv_decs_news"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            tools:text="@string/news_description" />
+
+        </LinearLayout>
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#4a4a4a"
+        android:layout_below="@+id/cont">
 
+    </LinearLayout>
 
 </RelativeLayout>
