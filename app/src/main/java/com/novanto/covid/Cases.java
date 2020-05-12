@@ -94,10 +94,15 @@ public class Cases extends Fragment {
 
                 }else{
                     //set text saat user memilih suatu provinsi
-                    namaProvinsi.setText(provinceCaseList.get(position-1).getAttributes().getProvinsi());
-                    positifProvinsi.setText(provinceCaseList.get(position-1).getAttributes().getKasus_Posi());
-                    sembuhProvinsi.setText(provinceCaseList.get(position-1).getAttributes().getKasus_Semb());
-                    meninggalProvinsi.setText(provinceCaseList.get(position-1).getAttributes().getKasus_Meni());
+                    namaProvinsi.setText(covid19Case.getCountries().get(position-1).getCountry());
+
+                    String totalPositif = NumberFormat.getInstance().format(covid19Case.getCountries().get(position-1).getTotalConfirmed());
+                    String totalSembuh = NumberFormat.getInstance().format(covid19Case.getCountries().get(position-1).getTotalRecovered());
+                    String totalMeninggal = NumberFormat.getInstance().format(covid19Case.getCountries().get(position-1).getTotalDeaths());
+
+                    positifProvinsi.setText(totalPositif);
+                    sembuhProvinsi.setText(totalSembuh);
+                    meninggalProvinsi.setText(totalMeninggal);
                 }
             }
 
@@ -202,9 +207,6 @@ public class Cases extends Fragment {
             @Override
             public void onResponse(Call<Covid19Case> call, Response<Covid19Case> response) {
                 covid19Case = response.body();
-//                Log.d(TAG, "onResponse: " + response.body().getGlobal().getTotalRecovered());
-                String responseText = NumberFormat.getInstance().format(covid19Case.getGlobal().getTotalRecovered());
-                Toast.makeText(getContext(),responseText,Toast.LENGTH_LONG).show();
 
                 for (int i = 0; i < covid19Case.getCountries().size(); i++){
                     list.add(covid19Case.getCountries().get(i).getCountry());
@@ -216,7 +218,7 @@ public class Cases extends Fragment {
 
             @Override
             public void onFailure(Call<Covid19Case> call, Throwable t) {
-                Toast.makeText(getContext(),"gagal",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_LONG).show();
 
             }
         });
