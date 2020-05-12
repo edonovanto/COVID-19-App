@@ -14,8 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +22,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import com.novanto.covid.cases.IndonesiaCase;
+import com.novanto.covid.cases.KawalCoronaApi;
+import com.novanto.covid.cases.ProvinceCase;
 
 public class Cases extends Fragment {
     private List<String> list = new ArrayList<String>();
@@ -36,6 +38,7 @@ public class Cases extends Fragment {
     private TextView totalPositif;
     private TextView totalSembuh;
     private TextView totalMeninggal;
+//    private Covid19Case covid19Case;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,8 +51,15 @@ public class Cases extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.cases_frag, container, false);
-        list.add("Pilih Provinsi");
+
+        //menambah "Pilih provinsi" ke array list
+        list.add(getString(R.string.provinsi));
+
+        //memanggil fungsi untuk get kasus covid-19 provinsi dari kawalcorona.com API
         getProvinceCases();
+
+//        covid19Case = new Covid19Case();
+//        getCovid19Cases();
 
         namaProvinsi = view.findViewById(R.id.namaProvinsi);
         positifProvinsi = view.findViewById(R.id.positifProvinsi);
@@ -60,22 +70,26 @@ public class Cases extends Fragment {
         totalSembuh = view.findViewById(R.id.totalSembuh);
         totalMeninggal = view.findViewById(R.id.totalMeninggal);
 
+        //membuat spinner
         Spinner spinner = (Spinner) view.findViewById(R.id.cases_spinner);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);
         spinner.setSelection(0);
 
+        //set spinner yang dipilih
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position==0){
+                    //set text "-" saat memilih "pilih provinsi"
                     namaProvinsi.setText("-");
                     positifProvinsi.setText("-");
                     sembuhProvinsi.setText("-");
                     meninggalProvinsi.setText("-");
 
                 }else{
+                    //set text saat user memilih suatu provinsi
                     namaProvinsi.setText(provinceCaseList.get(position-1).getAttributes().getProvinsi());
                     positifProvinsi.setText(provinceCaseList.get(position-1).getAttributes().getKasus_Posi());
                     sembuhProvinsi.setText(provinceCaseList.get(position-1).getAttributes().getKasus_Semb());
@@ -85,10 +99,20 @@ public class Cases extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                //set text saat user tidak memilih apapun
+                namaProvinsi.setText("-");
+                positifProvinsi.setText("-");
+                sembuhProvinsi.setText("-");
+                meninggalProvinsi.setText("-");
             }
         });
 
+        //set text menjadi loading
+        totalPositif.setText("Loading...");
+        totalSembuh.setText("Loading...");
+        totalMeninggal.setText("Loading...");
+
+        //memanggil fungsi untuk get kasus covid-19 indonesia
         getIndonesiaCases();
 
 
@@ -96,6 +120,7 @@ public class Cases extends Fragment {
         return  view;
     }
 
+    //get kasus provinsi dari kawalcorona.com API
     private void getProvinceCases(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(KawalCoronaApi.BASE_URL)
@@ -109,8 +134,11 @@ public class Cases extends Fragment {
         callProvinsi.enqueue(new Callback<List<ProvinceCase>>() {
             @Override
             public void onResponse(Call<List<ProvinceCase>> call, Response<List<ProvinceCase>> response) {
+
+                //menyimpan response dari hasil request get
                 provinceCaseList = response.body();
 
+                //menyimpan data kasus provinsi covid-19 ke dalam list
                 for (int i = 0; i < provinceCaseList.size(); i++){
                     list.add(provinceCaseList.get(i).getAttributes().getProvinsi());
                 }
@@ -125,6 +153,7 @@ public class Cases extends Fragment {
 
     }
 
+    //get kasus covid-19 Indonesia dari kawalcorona.com API
     private void getIndonesiaCases(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(KawalCoronaApi.BASE_URL)
@@ -137,6 +166,7 @@ public class Cases extends Fragment {
         callIndonesia.enqueue(new Callback<List<IndonesiaCase>>() {
             @Override
             public void onResponse(Call<List<IndonesiaCase>> call, Response<List<IndonesiaCase>> response) {
+                //menyimpan data reseponse dari reqeust get kasus covid-19 Indonesia
                 indonesiaCaseList = response.body();
 
                 totalPositif.setText(indonesiaCaseList.get(0).getPositif());
@@ -146,9 +176,40 @@ public class Cases extends Fragment {
 
             @Override
             public void onFailure(Call<List<IndonesiaCase>> call, Throwable t) {
+                Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_LONG).show();
 
             }
         });
 
     }
+
+
+//    private void getCovid19Cases(){
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(Covid19Api.BASE_URL)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        final Covid19Api covid19Api = retrofit.create(Covid19Api.class);
+//
+//        Call<Covid19Case> callCovid19 = covid19Api.getAllCovid19Cases();
+//
+//        callCovid19.enqueue(new Callback<Covid19Case>() {
+//            @Override
+//            public void onResponse(Call<Covid19Case> call, Response<Covid19Case> response) {
+//                covid19Case = response.body();
+////                Log.d(TAG, "onResponse: " + response.body().getGlobal().getTotalRecovered());
+//                String responseText = NumberFormat.getInstance().format(covid19Case.getGlobal().getTotalRecovered());
+//                Toast.makeText(getContext(),responseText,Toast.LENGTH_LONG).show();
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Covid19Case> call, Throwable t) {
+//                Toast.makeText(getContext(),"gagal",Toast.LENGTH_LONG).show();
+//
+//            }
+//        });
+//    }
+
 }
