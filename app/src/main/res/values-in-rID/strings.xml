@@ -3,12 +3,12 @@
 
     <string name="app_name">Covidpedia</string>
 
-    <string name="cases_prompt">Pilih Daerah/Provinsi</string>
+    <string name="cases_prompt">Pilih Negara</string>
 
-    <string name="data_kasus">Total kasus COVID-19 di Indonesia</string>
+    <string name="data_kasus">Total kasus COVID-19 Global</string>
     <string name="pantau">Data pemantauan kasus terkonfirmasi Covid-19</string>
-    <string name="provinsi">Pilih Provinsi</string>
-    <string name="covid">DATA KASUS COVID-19 INDONESIA</string>
+    <string name="provinsi">Pilih Negara</string>
+    <string name="covid">DATA KASUS COVID-19 NEGARA DUNIA</string>
 
 
     <string name="terkonfirmasi">Terkonfirmasi</string>

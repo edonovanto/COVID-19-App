@@ -52,7 +52,7 @@ public class Cases extends Fragment {
         View view = inflater.inflate(R.layout.cases_frag, container, false);
 
         //menambah "Pilih provinsi" ke array list
-        list.add(getString(R.string.provinsi));
+        list.add(getString(R.string.cases_prompt));
 
 
         covid19Case = new Covid19Case();

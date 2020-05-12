@@ -2,10 +2,10 @@
     <string name="app_name">Covidpedia</string>
     <string name="cases_prompt">Choose Region</string>
 
-    <string name="data_kasus">Total COVID-19 Cases in Indonesia</string>
+    <string name="data_kasus">Total COVID-19 Cases Global</string>
     <string name="pantau">Data on confirmed COVID-19 cases</string>
-    <string name="provinsi">Choose Province</string>
-    <string name="covid">COVID-19 CASES IN INDONESIA</string>
+    <string name="provinsi">Choose Country</string>
+    <string name="covid">COVID-19 CASES IN WORLD COUNTRIES</string>
 
     <string name="terkonfirmasi">Confirmed</string>
     <string name="positif">Positive</string>
