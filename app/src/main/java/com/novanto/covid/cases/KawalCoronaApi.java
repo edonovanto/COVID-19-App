@@ -1,4 +1,4 @@
-package com.novanto.covid;
+package com.novanto.covid.cases;
 
 import java.util.List;
 

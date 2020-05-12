@@ -1,7 +1,6 @@
 package com.novanto.covid;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import org.w3c.dom.Text;
-
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,10 +23,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import com.novanto.covid.cases.Covid19Api;
-import com.novanto.covid.cases.Covid19Case;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
+import com.novanto.covid.cases.IndonesiaCase;
+import com.novanto.covid.cases.KawalCoronaApi;
+import com.novanto.covid.cases.ProvinceCase;
 
 public class Cases extends Fragment {
     private List<String> list = new ArrayList<String>();
@@ -56,8 +51,11 @@ public class Cases extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.cases_frag, container, false);
+
+        //menambah "Pilih provinsi" ke array list
         list.add(getString(R.string.provinsi));
 
+        //memanggil fungsi untuk get kasus covid-19 provinsi dari kawalcorona.com API
         getProvinceCases();
 
 //        covid19Case = new Covid19Case();
@@ -72,23 +70,26 @@ public class Cases extends Fragment {
         totalSembuh = view.findViewById(R.id.totalSembuh);
         totalMeninggal = view.findViewById(R.id.totalMeninggal);
 
-
+        //membuat spinner
         Spinner spinner = (Spinner) view.findViewById(R.id.cases_spinner);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);
         spinner.setSelection(0);
 
+        //set spinner yang dipilih
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position==0){
+                    //set text "-" saat memilih "pilih provinsi"
                     namaProvinsi.setText("-");
                     positifProvinsi.setText("-");
                     sembuhProvinsi.setText("-");
                     meninggalProvinsi.setText("-");
 
                 }else{
+                    //set text saat user memilih suatu provinsi
                     namaProvinsi.setText(provinceCaseList.get(position-1).getAttributes().getProvinsi());
                     positifProvinsi.setText(provinceCaseList.get(position-1).getAttributes().getKasus_Posi());
                     sembuhProvinsi.setText(provinceCaseList.get(position-1).getAttributes().getKasus_Semb());
@@ -98,18 +99,20 @@ public class Cases extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                //set text saat user tidak memilih apapun
                 namaProvinsi.setText("-");
                 positifProvinsi.setText("-");
                 sembuhProvinsi.setText("-");
                 meninggalProvinsi.setText("-");
-
-
             }
         });
 
+        //set text menjadi loading
         totalPositif.setText("Loading...");
         totalSembuh.setText("Loading...");
         totalMeninggal.setText("Loading...");
+
+        //memanggil fungsi untuk get kasus covid-19 indonesia
         getIndonesiaCases();
 
 
@@ -117,6 +120,7 @@ public class Cases extends Fragment {
         return  view;
     }
 
+    //get kasus provinsi dari kawalcorona.com API
     private void getProvinceCases(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(KawalCoronaApi.BASE_URL)
@@ -130,8 +134,11 @@ public class Cases extends Fragment {
         callProvinsi.enqueue(new Callback<List<ProvinceCase>>() {
             @Override
             public void onResponse(Call<List<ProvinceCase>> call, Response<List<ProvinceCase>> response) {
+
+                //menyimpan response dari hasil request get
                 provinceCaseList = response.body();
 
+                //menyimpan data kasus provinsi covid-19 ke dalam list
                 for (int i = 0; i < provinceCaseList.size(); i++){
                     list.add(provinceCaseList.get(i).getAttributes().getProvinsi());
                 }
@@ -146,6 +153,7 @@ public class Cases extends Fragment {
 
     }
 
+    //get kasus covid-19 Indonesia dari kawalcorona.com API
     private void getIndonesiaCases(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(KawalCoronaApi.BASE_URL)
@@ -158,6 +166,7 @@ public class Cases extends Fragment {
         callIndonesia.enqueue(new Callback<List<IndonesiaCase>>() {
             @Override
             public void onResponse(Call<List<IndonesiaCase>> call, Response<List<IndonesiaCase>> response) {
+                //menyimpan data reseponse dari reqeust get kasus covid-19 Indonesia
                 indonesiaCaseList = response.body();
 
                 totalPositif.setText(indonesiaCaseList.get(0).getPositif());

@@ -1,4 +1,4 @@
-package com.novanto.covid;
+package com.novanto.covid.cases;
 
 import com.google.gson.annotations.SerializedName;
 
