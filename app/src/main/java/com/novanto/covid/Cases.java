@@ -27,18 +27,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import com.novanto.covid.cases.Covid19Api;
 import com.novanto.covid.cases.Covid19Case;
-import com.novanto.covid.cases.IndonesiaCase;
-import com.novanto.covid.cases.KawalCoronaApi;
-import com.novanto.covid.cases.ProvinceCase;
 
 public class Cases extends Fragment {
     private List<String> list = new ArrayList<String>();
-    private List<ProvinceCase> provinceCaseList;
-    private List<IndonesiaCase> indonesiaCaseList;
-    private TextView namaProvinsi;
-    private TextView positifProvinsi;
-    private TextView sembuhProvinsi;
-    private TextView meninggalProvinsi;
+    private TextView namaNegara;
+    private TextView positifNegara;
+    private TextView sembuhNegara;
+    private TextView meninggalNegara;
     private TextView totalPositif;
     private TextView totalSembuh;
     private TextView totalMeninggal;
@@ -59,16 +54,14 @@ public class Cases extends Fragment {
         //menambah "Pilih provinsi" ke array list
         list.add(getString(R.string.provinsi));
 
-        //memanggil fungsi untuk get kasus covid-19 provinsi dari kawalcorona.com API
-//        getProvinceCases();
 
         covid19Case = new Covid19Case();
         getCovid19Cases();
 
-        namaProvinsi = view.findViewById(R.id.namaProvinsi);
-        positifProvinsi = view.findViewById(R.id.positifProvinsi);
-        sembuhProvinsi = view.findViewById(R.id.sembuhProvinsi);
-        meninggalProvinsi = view.findViewById(R.id.meninggalProvinsi);
+        namaNegara = view.findViewById(R.id.namaNegara);
+        positifNegara = view.findViewById(R.id.positifNegara);
+        sembuhNegara = view.findViewById(R.id.sembuhNegara);
+        meninggalNegara = view.findViewById(R.id.meninggalNegara);
 
         totalPositif = view.findViewById(R.id.totalPositif);
         totalSembuh = view.findViewById(R.id.totalSembuh);
@@ -87,32 +80,32 @@ public class Cases extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position==0){
                     //set text "-" saat memilih "pilih provinsi"
-                    namaProvinsi.setText("-");
-                    positifProvinsi.setText("-");
-                    sembuhProvinsi.setText("-");
-                    meninggalProvinsi.setText("-");
+                    namaNegara.setText("-");
+                    positifNegara.setText("-");
+                    sembuhNegara.setText("-");
+                    meninggalNegara.setText("-");
 
                 }else{
                     //set text saat user memilih suatu provinsi
-                    namaProvinsi.setText(covid19Case.getCountries().get(position-1).getCountry());
+                    namaNegara.setText(covid19Case.getCountries().get(position-1).getCountry());
 
                     String totalPositif = NumberFormat.getInstance().format(covid19Case.getCountries().get(position-1).getTotalConfirmed());
                     String totalSembuh = NumberFormat.getInstance().format(covid19Case.getCountries().get(position-1).getTotalRecovered());
                     String totalMeninggal = NumberFormat.getInstance().format(covid19Case.getCountries().get(position-1).getTotalDeaths());
 
-                    positifProvinsi.setText(totalPositif);
-                    sembuhProvinsi.setText(totalSembuh);
-                    meninggalProvinsi.setText(totalMeninggal);
+                    positifNegara.setText(totalPositif);
+                    sembuhNegara.setText(totalSembuh);
+                    meninggalNegara.setText(totalMeninggal);
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 //set text saat user tidak memilih apapun
-                namaProvinsi.setText("-");
-                positifProvinsi.setText("-");
-                sembuhProvinsi.setText("-");
-                meninggalProvinsi.setText("-");
+                namaNegara.setText("-");
+                positifNegara.setText("-");
+                sembuhNegara.setText("-");
+                meninggalNegara.setText("-");
             }
         });
 
@@ -121,76 +114,11 @@ public class Cases extends Fragment {
         totalSembuh.setText("Loading...");
         totalMeninggal.setText("Loading...");
 
-        //memanggil fungsi untuk get kasus covid-19 indonesia
-//        getIndonesiaCases();
 
 
 
         return  view;
     }
-
-    //get kasus provinsi dari kawalcorona.com API
-//    private void getProvinceCases(){
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(KawalCoronaApi.BASE_URL)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//
-//        KawalCoronaApi kawalCoronaApi = retrofit.create(KawalCoronaApi.class);
-//
-//        Call<List<ProvinceCase>> callProvinsi = kawalCoronaApi.getListProvinsi();
-//
-//        callProvinsi.enqueue(new Callback<List<ProvinceCase>>() {
-//            @Override
-//            public void onResponse(Call<List<ProvinceCase>> call, Response<List<ProvinceCase>> response) {
-//
-//                //menyimpan response dari hasil request get
-//                provinceCaseList = response.body();
-//
-//                //menyimpan data kasus provinsi covid-19 ke dalam list
-//                for (int i = 0; i < provinceCaseList.size(); i++){
-//                    list.add(provinceCaseList.get(i).getAttributes().getProvinsi());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<ProvinceCase>> call, Throwable t) {
-//                Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_LONG).show();
-//
-//            }
-//        });
-//
-//    }
-
-    //get kasus covid-19 Indonesia dari kawalcorona.com API
-//    private void getIndonesiaCases(){
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(KawalCoronaApi.BASE_URL)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//
-//        KawalCoronaApi kawalCoronaApi = retrofit.create(KawalCoronaApi.class);
-//        Call<List<IndonesiaCase>> callIndonesia = kawalCoronaApi.getListIndonesia();
-//
-//        callIndonesia.enqueue(new Callback<List<IndonesiaCase>>() {
-//            @Override
-//            public void onResponse(Call<List<IndonesiaCase>> call, Response<List<IndonesiaCase>> response) {
-//                //menyimpan data reseponse dari reqeust get kasus covid-19 Indonesia
-//                indonesiaCaseList = response.body();
-//
-//                totalPositif.setText(indonesiaCaseList.get(0).getPositif());
-//                totalSembuh.setText(indonesiaCaseList.get(0).getSembuh());
-//                totalMeninggal.setText(indonesiaCaseList.get(0).getMeninggal());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<IndonesiaCase>> call, Throwable t) {
-//                Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_LONG).show();
-//
-//            }
-//        });
-//
-//    }
 
 
     private void getCovid19Cases(){
