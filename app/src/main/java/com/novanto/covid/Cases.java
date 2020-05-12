@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import org.w3c.dom.Text;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class Cases extends Fragment {
     private TextView totalPositif;
     private TextView totalSembuh;
     private TextView totalMeninggal;
-    private Covid19Case covid19Case;
+//    private Covid19Case covid19Case;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -188,8 +189,9 @@ public class Cases extends Fragment {
 //            @Override
 //            public void onResponse(Call<Covid19Case> call, Response<Covid19Case> response) {
 //                covid19Case = response.body();
-//                Log.d(TAG, "onResponse: " + response.body().getGlobal().getTotalRecovered());
-//                Toast.makeText(getContext(),covid19Case.getGlobal().getTotalRecovered()+"",Toast.LENGTH_LONG).show();
+////                Log.d(TAG, "onResponse: " + response.body().getGlobal().getTotalRecovered());
+//                String responseText = NumberFormat.getInstance().format(covid19Case.getGlobal().getTotalRecovered());
+//                Toast.makeText(getContext(),responseText,Toast.LENGTH_LONG).show();
 //
 //            }
 //
@@ -199,7 +201,6 @@ public class Cases extends Fragment {
 //
 //            }
 //        });
-//
 //    }
 
 }
